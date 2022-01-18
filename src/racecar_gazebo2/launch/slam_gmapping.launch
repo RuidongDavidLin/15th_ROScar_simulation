@@ -1,0 +1,11 @@
+<launch>
+
+    <include file="$(find racecar_gazebo2)/launch/gmapping.launch"/>
+<!--Launch the simulation joystick control-->
+	<rosparam command="load" file="$(find racecar_gazebo2)/config/keyboard_teleop.yaml" />
+	<node pkg="racecar_gazebo2" type="keyboard_teleop.py" name="keyboard_teleop" />
+<!-- 启动rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find racecar_gazebo2)/config/new_gmapping.rviz"/>
+
+</launch>
+

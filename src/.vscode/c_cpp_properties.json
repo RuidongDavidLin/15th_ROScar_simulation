@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/seanz/workspace/smartcar/devel/include/**",
+                "/home/seanz/workspace/test/devel/include/**",
+                "/opt/ros/melodic/include/**",
+                "/home/seanz/workspace/test/src/racecar/system/racecar/ackermann_cmd_mux/include/**",
+                "/home/seanz/workspace/test/src/racecar/system/hokuyo_node/include/**",
+                "/home/seanz/workspace/smartcar/src/rf2o_laser_odometry-master/include/**",
+                "/home/seanz/workspace/test/src/racecar/system/serial/include/**",
+                "/home/seanz/workspace/test/src/racecar/system/vesc/vesc_ackermann/include/**",
+                "/home/seanz/workspace/test/src/racecar/system/vesc/vesc_driver/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launch the racecar -->
+  <include file="$(find racecar_gazebo2)/launch/racecar.launch">
+    <arg name="world_name" value="racetrack"/>
+  </include>
+  
+  <!-- Launch the built-map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find racecar_gazebo2)/map/map_runway.yaml" />
+	
+<!--Localization -->
+    <!-- AMCL-->
+	<include file="$(find racecar_gazebo2)/launch/includes/amcl.launch"/>
+  <!--Launch the move base with time elastic band-->
+  <param name="/use_sim_time" value="true"/>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find racecar_gazebo2)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find racecar_gazebo2)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find racecar_gazebo2)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find racecar_gazebo2)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find racecar_gazebo2)/config/teb_local_planner_params.yaml" command="load" />
+    <!--remap from='/odom' to ='/odometry/filtered' /-->
+
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="planner_frequency" value="0.01" />
+    <param name="planner_patience" value="5.0" />
+    <!--param name="use_dijkstra" value="false" /-->
+    
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="15.0" />
+
+    <param name="clearing_rotation_allowed" value="false" />
+  </node>	
+  
+	<!-- teb消息 -->
+	<node pkg="racecar_gazebo2" name="cmd_vel_to_ackermann_drive" type="cmd_vel_to_ackermann_drive.py"/>
+	
+	<!-- 启动rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find racecar_gazebo2)/config/racecar_rviz.rviz"/>
+
+	
+</launch>
